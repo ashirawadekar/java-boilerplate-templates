@@ -1,9 +1,14 @@
 package com.template;
 
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 
 import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -24,34 +29,63 @@ public class RestTemplateExample {
 
 	public static String URL = "https://jsonplaceholder.typicode.com";
 	public static String SINGLE_POST_URL = "https://jsonplaceholder.typicode.com/posts/{id}";
+	public static String KEY = "o4VCj64C9ToROE6cHpR22tS89lF34DnDl5tMCCWC";
 
-	public static void main(String[] args) throws JsonProcessingException, InterruptedException {
+	public static void main(String[] args) throws IOException, InterruptedException {
+
+//		URL url = new URL("https://mdn.github.io/dom-examples/streams/simple-random-stream/");
+
+
+//		URL url = new URL("http://localhost:8080/stream");
+//		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//
+//		try {
+//			InputStream in = url.openStream();
+//			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+//			StringBuilder result = new StringBuilder();
+//			String line;
+//			while((line = reader.readLine()) != null) {
+//				result.append(line);
+//				System.out.println("INSIDE");
+//			}
+//			System.out.println("Final Result = " + result);
+//		} finally {
+//
+//		}
+
+		//Snippet to download large file using rest template
+//		File file = restTemplate.execute(FILE_URL, HttpMethod.GET, null, clientHttpResponse -> {
+//			File ret = File.createTempFile("download", "tmp");
+//			StreamUtils.copy(clientHttpResponse.getBody(), new FileOutputStream(ret));
+//			return ret;
+//		});
+
 
 //		Get all posts
-		List<Post> posts = getPostsExample();
-		System.out.println("Received " + posts.size() + " posts");
-
-		//Get single post
-		Post post = getSinglePostExample(1);
-		System.out.println(post);
-
-		// Post a new post
-		Post newPost = new Post(12l, "This is title of new post", "This is body of new post");
-		Post customPost = postNewPostExample(newPost);
-		System.out.println(customPost);
-
+//		List<Post> posts = getPostsExample();
+//		System.out.println("Received " + posts.size() + " posts");
+//
+//		//Get single post
+//		Post post = getSinglePostExample(1);
+//		System.out.println(post);
+//
+//		// Post a new post
+//		Post newPost = new Post(12l, "This is title of new post", "This is body of new post");
+//		Post customPost = postNewPostExample(newPost);
+//		System.out.println(customPost);
+//
 		//Update an existing post with PUT
 		Post updatedPost = new Post(1l,"FOO", "BAR");
 		updatedPost.setId(1l);
 		Post updatedPostInResponse = updatePostPutExample(updatedPost);
 		System.out.println(updatedPostInResponse);
-
-		// DELETE Example
-		deletePostExample(1l);
-
-		// Get with query params
-		List<Post> postsUsingQueryParams = getPostsWithQueryParam(1l);
-		System.out.println("Number of posts " + postsUsingQueryParams.size());
+//
+//		// DELETE Example
+//		deletePostExample(1l);
+//
+//		// Get with query params
+//		List<Post> postsUsingQueryParams = getPostsWithQueryParam(1l);
+//		System.out.println("Number of posts " + postsUsingQueryParams.size());
 
 		//Updating a resource with PATCH
 //		Post updatedPostWithPatch = new Post();
@@ -80,7 +114,9 @@ public class RestTemplateExample {
 
 		try {
 
-			UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(URL).path("/posts").queryParam("userId", "1");
+			UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(URL)
+																			.path("/posts")
+																			.queryParam("userId", "1");
 
 			HttpHeaders httpHeaders = new HttpHeaders();
 			httpHeaders.setContentType(MediaType.APPLICATION_JSON);

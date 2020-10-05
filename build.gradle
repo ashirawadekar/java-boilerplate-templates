@@ -14,8 +14,8 @@ repositories {
 
 dependencies {
 //	group: 'org.springframework', name: 'spring-web', version: '5.2.9.RELEASE'
-	implementation group: 'org.springframework', name: 'spring-web'
-	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation group: 'org.springframework', name: 'spring-webmvc'
 
 	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310'
 	implementation group: 'org.apache.httpcomponents', name: 'httpclient'
