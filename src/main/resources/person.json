@@ -1,0 +1,37 @@
+{
+  "firstName" : "Mike",
+  "lastName" : "Hats",
+  "middleName" : null,
+  "gender" : "MALE",
+  "birthdate" : [ 1990, 12, 1 ],
+  "phoneNumber" : "3121111111",
+  "title" : null,
+  "email" : "mike@mailinator.com",
+  "homeAddress" : {
+    "streetAddress" : "440 Home Lane",
+    "apartmentNumber" : "1214",
+    "city" : "Chicago",
+    "state" : "IL",
+    "zip" : "60654"
+  },
+  "mailingAddress" : {
+    "streetAddress" : "800 Mailing Lane",
+    "apartmentNumber" : "4141",
+    "city" : "Chicago",
+    "state" : "IL",
+    "zip" : "60626"
+  },
+  "addresses" : [ {
+    "streetAddress" : "440 Home Lane",
+    "apartmentNumber" : "1214",
+    "city" : "Chicago",
+    "state" : "IL",
+    "zip" : "60654"
+  }, {
+    "streetAddress" : "800 Mailing Lane",
+    "apartmentNumber" : "4141",
+    "city" : "Chicago",
+    "state" : "IL",
+    "zip" : "60626"
+  } ]
+}
