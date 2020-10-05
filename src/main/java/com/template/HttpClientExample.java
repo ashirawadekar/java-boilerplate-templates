@@ -30,21 +30,23 @@ public class HttpClientExample {
 
     public static void main(String args[]) throws URISyntaxException {
 
-        List<Post> posts = getPosts();
-        System.out.println(posts);
 
-//        getStreamingResponse();
 
-        System.out.println(getSinglePost());
+        getStreamingResponse();
 
-        System.out.println(postNewPostExample(new Post(105l, "Title Example", "Body Example")));
-        Post updatedPost = new Post();
-        updatedPost.setId(1l);
-        updatedPost.setTitle("NEW UPDATED TITLE");
-        System.out.println(updatePostPutExample(updatedPost));
-        System.out.println(updatePostPatchExample(updatedPost));
-
-        System.out.println(getPostWithQueryParams().size());
+//        List<Post> posts = getPosts();
+//        System.out.println(posts);
+//
+//        System.out.println(getSinglePost());
+//
+//        System.out.println(postNewPostExample(new Post(105l, "Title Example", "Body Example")));
+//        Post updatedPost = new Post();
+//        updatedPost.setId(1l);
+//        updatedPost.setTitle("NEW UPDATED TITLE");
+//        System.out.println(updatePostPutExample(updatedPost));
+//        System.out.println(updatePostPatchExample(updatedPost));
+//
+//        System.out.println(getPostWithQueryParams().size());
 
     }
 
@@ -72,19 +74,28 @@ public class HttpClientExample {
     private static void getStreamingResponse() {
         try(CloseableHttpClient client = HttpClientBuilder.create().build()) {
 
+//            HttpGet get = new HttpGet("http://localhost:8080/stream");
             HttpGet get = new HttpGet(STREAM_URL);
             get.addHeader(HttpHeaders.AUTHORIZATION, KEY);
 
             try (InputStream stream = client.execute(get).getEntity().getContent()) {
 
                 BufferedReader buffered = new BufferedReader(new InputStreamReader(new BufferedInputStream(stream)));
-
-                while (true) {
+                boolean condition = true;
+                while (condition) {
                     String value = buffered.readLine();
 
-                    if(!value.isBlank()) {
+                    /**
+                     * NOTE: UPDATE THIS CONDITIONAL CHECK AS PER REQUIRED
+                     */
+                    if(value != null && !value.isBlank()) {
                         System.out.printf("Response is: %s ", value);
-                        // Confirm best way to close the client
+                        // Confirm best way to close the client, this is just so that its not forever
+                        condition = false;
+                        client.close();
+                    } else {
+                        // close connection based on some success value from streaming api
+                        condition = false;
                         client.close();
                     }
                 }

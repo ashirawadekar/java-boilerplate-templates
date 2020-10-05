@@ -18,7 +18,7 @@ public class StreamController {
             @Override
             public void writeTo(OutputStream outputStream) throws IOException {
                 for(int i = 0; i < 1000; i++) {
-                    outputStream.write((Integer.toString(i) + " - ")
+                    outputStream.write((Integer.toString(i) + " - STREAM ")
                             .getBytes());
                     outputStream.flush();
                     try {
